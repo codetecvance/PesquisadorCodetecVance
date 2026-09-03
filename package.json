@@ -1,0 +1,20 @@
+{
+  "name": "pesquisadorcodetecvance",
+  "description": "Coleta de leads públicos e dashboard local",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "limpar": "node limpar_leads.js",
+    "emails": "node enriquecer_emails.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "playwright": "^1.62.1"
+  }
+}

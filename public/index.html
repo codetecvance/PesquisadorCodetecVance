@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PesquisadorCodetecVance</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>PesquisadorCodetecVance</h1>
+    <div class="topbar-actions">
+      <button id="btnReload" class="btn" title="Recarregar dados dos CSVs">Recarregar</button>
+      <button id="btnExport" class="btn btn-primary" title="Exportar filtro atual como CSV">Exportar CSV</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="kpis" id="kpis"></section>
+
+    <section class="charts">
+      <div class="chart-card">
+        <h2>Leads por Categoria</h2>
+        <canvas id="chartCategoria" height="220"></canvas>
+      </div>
+      <div class="chart-card">
+        <h2>Leads por Cidade</h2>
+        <canvas id="chartCidade" height="220"></canvas>
+      </div>
+      <div class="chart-card">
+        <h2>Distribuição de Avaliações</h2>
+        <canvas id="chartAvaliacao" height="220"></canvas>
+      </div>
+    </section>
+
+    <section class="filters">
+      <select id="fCidade"><option value="">Cidade (todas)</option></select>
+      <select id="fBairro"><option value="">Bairro (todos)</option></select>
+      <select id="fCategoria"><option value="">Categoria (todas)</option></select>
+      <select id="fStatus">
+        <option value="">Status (todos)</option>
+        <option value="novo">Novo</option>
+        <option value="contatado">Contatado</option>
+        <option value="respondido">Respondeu</option>
+        <option value="fechou">Fechou</option>
+        <option value="descartado">Descartado</option>
+      </select>
+      <select id="fAvaliacaoMin">
+        <option value="">Avaliação mínima</option>
+        <option value="0">0+</option>
+        <option value="4">4+</option>
+        <option value="4.5">4.5+</option>
+        <option value="4.8">4.8+</option>
+      </select>
+      <label class="check"><input type="checkbox" id="fComTelefone" /> Com telefone</label>
+      <label class="check"><input type="checkbox" id="fComSite" /> Com site</label>
+      <label class="check"><input type="checkbox" id="fSemTelefone" /> Sem telefone</label>
+      <label class="check"><input type="checkbox" id="fSemSite" /> Sem site</label>
+      <label class="check"><input type="checkbox" id="fComEmail" /> Com email</label>
+      <label class="check"><input type="checkbox" id="fSemEmail" /> Sem email</label>
+      <input type="search" id="fBusca" placeholder="Buscar por nome ou email..." />
+      <span class="result-count" id="resultCount"></span>
+    </section>
+
+    <section class="table-wrap">
+      <table id="tabela">
+        <thead>
+          <tr>
+            <th data-col="nome">Nome</th>
+            <th data-col="categoria">Categoria</th>
+            <th data-col="cidade">Cidade</th>
+            <th data-col="bairro">Bairro</th>
+            <th data-col="avaliacao">Aval.</th>
+            <th data-col="num_avaliacoes">Nº Aval.</th>
+            <th>Telefone</th>
+            <th>Email</th>
+            <th>Site</th>
+            <th>Status</th>
+            <th>Nota</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

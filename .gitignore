@@ -1,0 +1,14 @@
+node_modules/
+
+# Dados reais de leads e backups
+leads_*.csv
+leads_*.csv.bak
+leads_*.csv.bak-email
+leads_status.json
+
+# Configurações e arquivos locais
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db

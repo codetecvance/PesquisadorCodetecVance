@@ -1,0 +1,40 @@
+PesquisadorCodetecVance - Coleta de leads do Google Maps + Dashboard local
+==========================================================================
+
+1) COLETAR LEADS (gera arquivos leads_*.csv)
+--------------------------------------------
+cd D:\PESQUISAGERAL
+node leads_geral.js --cidade "Florianópolis" --categorias "funilaria, mecanico, guincho, loja de bateria" --limite 300
+node leads_bairro.js --cidade "Salvador" --bairros "Stella Maris,Pituba" --categorias "hamburgueria,pizzaria" --limite 300
+
+Flags extras:
+  --somente-telefone   ignora leads sem telefone
+  --iniciar N          pula as N primeiras categorias
+  --headed             abre o navegador visível (debug)
+
+Para yoga e pilates, o programa também pesquisa automaticamente variações como
+"estúdio de yoga", "aulas de yoga", "studio de pilates" e "aulas de pilates".
+O --limite é por termo pesquisado. Exemplo: --limite 300 pode coletar até 300
+resultados em cada variação, desde que o Google Maps disponibilize esses resultados.
+
+2) LIMPAR / DEDUPLICAR OS CSVs (opcional, após coletar)
+-------------------------------------------------------
+node limpar_leads.js
+(remove duplicatas e registros com nome/link trocados; cria backup .bak)
+
+3) BUSCAR EMAILS DOS SITES JÁ COLETADOS
+----------------------------------------
+npm run emails
+(consulta a página inicial e uma página de contato, quando disponível)
+
+4) ABRIR O DASHBOARD NO NAVEGADOR
+---------------------------------
+npm start
+Depois acesse: http://localhost:3000
+
+  - KPIs, gráficos e filtros (cidade, bairro, categoria, status, avaliação, busca)
+  - Busca por nome ou email; filtros Com email e Sem email
+  - Marque status do lead (novo/contatado/respondido/fechou/descartado) e anote
+  - Status e notas ficam salvos em leads_status.json (sobrevivem a novas coletas)
+  - "Recarregar" atualiza os dados após rodar o scraper
+  - "Exportar CSV" baixa o filtro atual
