@@ -1,0 +1,285 @@
+PESQUISADORCODETECVANCE - GUIA DE USO LOCAL E PUBLICACAO NO GITHUB
+===================================================================
+
+Este guia explica como baixar, instalar, executar e publicar este projeto.
+
+O PesquisadorCodetecVance coleta dados publicos apresentados no Google Maps,
+salva os resultados em arquivos CSV e oferece um dashboard local para filtrar,
+organizar e exportar os dados.
+
+IMPORTANTE SOBRE SEGURANCA
+--------------------------
+
+1. Esta versao nao usa token, senha ou chave de API.
+2. O arquivo exemple.env e apenas um modelo. Ele nao contem credenciais.
+3. Nunca publique um arquivo .env real, tokens, senhas, cookies ou credenciais.
+4. Nunca coloque no GitHub CSVs reais, backups ou leads_status.json.
+5. O pacote do Release deve conter somente o codigo e os arquivos de exemplo.
+6. Use os dados coletados de forma responsavel, observando a LGPD, os termos
+   dos servicos consultados e as regras aplicaveis ao contato comercial.
+
+REQUISITOS
+----------
+
+1. Windows, macOS ou Linux.
+2. Node.js 20 ou superior.
+3. npm, instalado junto com o Node.js.
+4. Internet para consultar o Google Maps e os sites dos estabelecimentos.
+
+COMO BAIXAR PELO RELEASE
+-------------------------
+
+1. Acesse:
+   https://github.com/codetecvance/PesquisadorCodetecVance/releases
+2. Abra o Release v1.0.0.
+3. Baixe o arquivo pesquisadorcodetec1.0.0.rar.
+4. Extraia o arquivo em uma pasta de sua escolha.
+5. Abra o PowerShell ou o Prompt de Comando nessa pasta.
+
+COMO BAIXAR COM GIT
+-------------------
+
+Execute:
+
+git clone https://github.com/codetecvance/PesquisadorCodetecVance.git
+cd PesquisadorCodetecVance
+
+INSTALACAO
+----------
+
+Dentro da pasta do projeto, execute:
+
+npm install
+npx playwright install chromium
+
+O segundo comando instala o navegador Chromium usado pelo coletor.
+
+CONFIGURACAO OPCIONAL
+---------------------
+
+O arquivo exemple.env mostra a unica configuracao disponivel nesta versao:
+
+PORT=3000
+
+O projeto nao carrega automaticamente arquivos .env. Para usar outra porta no
+PowerShell, defina a variavel antes de iniciar:
+
+$env:PORT=3001
+npm start
+
+No Prompt de Comando do Windows:
+
+set PORT=3001
+npm start
+
+No macOS ou Linux:
+
+PORT=3001 npm start
+
+Se nenhuma porta for definida, o dashboard usa a porta 3000.
+
+INICIAR O DASHBOARD
+-------------------
+
+Execute:
+
+npm start
+
+Depois abra no navegador:
+
+http://localhost:3000
+
+Se tiver escolhido outra porta, substitua 3000 pela porta configurada.
+
+O dashboard permite:
+
+1. Filtrar por cidade, bairro, categoria, status e avaliacao.
+2. Procurar por nome ou e-mail.
+3. Filtrar leads com ou sem telefone, site ou e-mail.
+4. Alterar o status para novo, contatado, respondido, fechou ou descartado.
+5. Registrar anotacoes locais.
+6. Recarregar os dados apos uma nova coleta.
+7. Exportar o resultado filtrado para CSV.
+
+Os status e as anotacoes sao salvos localmente em leads_status.json.
+
+COLETA GERAL POR CIDADE
+-----------------------
+
+Exemplo:
+
+node leads_geral.js --cidade "Sao Jose" --categorias "nutricao,fisioterapia,psicologia" --limite 300
+
+Os resultados sao salvos em um arquivo leads_<cidade>.csv.
+
+COLETA POR BAIRRO
+-----------------
+
+Exemplo:
+
+node leads_bairro.js --cidade "Salvador" --bairros "Pituba,Stella Maris" --categorias "hamburgueria,pizzaria" --limite 300
+
+Os resultados sao salvos em arquivos CSV separados por bairro e cidade.
+
+OPCOES DO COLETOR
+-----------------
+
+--cidade "Nome da cidade"
+   Define a cidade da pesquisa.
+
+--bairros "Bairro 1,Bairro 2"
+   Obrigatorio no coletor por bairro. Separe varios bairros por virgula.
+
+--categorias "categoria 1,categoria 2"
+   Define os termos de pesquisa separados por virgula.
+
+--limite 300
+   Limite de resultados por termo pesquisado.
+
+--iniciar N
+   Pula as N primeiras categorias. Util para continuar uma coleta.
+
+--headed
+   Abre o navegador visivelmente. Use para acompanhar ou investigar uma
+   coleta que esteja apresentando problemas.
+
+--somente-telefone
+   Salva somente resultados que tenham telefone.
+
+Para os termos yoga e pilates, o programa tambem pesquisa algumas variacoes
+automaticamente.
+
+LIMPAR E DEDUPLICAR
+-------------------
+
+Depois da coleta, opcionalmente execute:
+
+npm run limpar
+
+Esse comando remove duplicatas e registros inconsistentes. Antes de alterar
+cada CSV, ele cria um backup com a extensao .bak.
+
+BUSCAR E-MAILS NOS SITES
+------------------------
+
+Para consultar os sites ja coletados e atualizar os CSVs com e-mails:
+
+npm run emails
+
+Esse comando cria backups com a extensao .bak-email antes de atualizar os
+arquivos. A busca depende da disponibilidade e da estrutura de cada site.
+
+ORDEM SUGERIDA DE OPERACAO
+--------------------------
+
+1. Instale as dependencias e o Chromium.
+2. Execute uma coleta pequena, por exemplo com --limite 20.
+3. Confira o CSV gerado.
+4. Execute npm run limpar, se necessario.
+5. Execute npm run emails, se quiser buscar e-mails.
+6. Execute npm start.
+7. Acesse o dashboard e use Recarregar.
+
+ARQUIVOS LOCAIS E PRIVACIDADE
+-----------------------------
+
+Os arquivos abaixo sao criados durante o uso e nao devem ser enviados ao
+GitHub:
+
+leads_*.csv
+leads_*.csv.bak
+leads_*.csv.bak-email
+leads_status.json
+.env
+*.log
+
+O .gitignore do projeto ja bloqueia esses arquivos. Mesmo assim, confira a
+lista de arquivos antes de executar git add . ou criar um pacote.
+
+COMO PUBLICAR EM UM REPOSITORIO PROPRIO
+---------------------------------------
+
+Use este procedimento somente em um repositorio seu ou em um repositorio no
+qual voce tenha permissao de escrita.
+
+1. Crie um repositorio vazio no GitHub. Nao inicialize com README, .gitignore
+   ou license se voce ja estiver usando esta pasta.
+2. Na pasta do projeto, confira os arquivos que serao enviados:
+
+   git status --short
+   git ls-files
+
+3. Confirme que nao aparecem CSVs, backups, leads_status.json, .env ou tokens.
+4. Configure o repositorio remoto, substituindo a URL pela sua:
+
+   git remote remove origin
+   git remote add origin https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
+
+5. Adicione somente arquivos seguros. Prefira a lista explicita:
+
+   git add .gitignore README.md GUIA_USO.txt exemple.env comando.txt csv.js email.js enriquecer_emails.js leads_bairro.js leads_geral.js limpar_leads.js package.json package-lock.json server.js public
+
+6. Revise o que sera enviado:
+
+   git diff --cached --stat
+   git diff --cached --check
+   git diff --cached
+
+7. Crie o commit e envie para o GitHub:
+
+   git commit -m "docs: add usage guide and safe release example"
+   git branch -M main
+   git push -u origin main
+
+Se o repositorio ja tiver historico, nao remova o remote sem confirmar o
+endereco. Nesse caso, ajuste apenas o remote necessario.
+
+COMO CRIAR UM RELEASE
+---------------------
+
+1. Crie uma tag de versao no commit publicado:
+
+   git tag -a v1.0.0 -m "Release v1.0.0"
+   git push origin v1.0.0
+
+2. No GitHub, abra Releases e selecione Draft a new release.
+3. Escolha a tag v1.0.0.
+4. Informe um titulo como PesquisadorCodetecVance v1.0.0.
+5. Anexe pesquisadorcodetec1.0.0.rar.
+6. Publique o Release.
+
+O arquivo RAR deve ser um ativo do Release. Nao e necessario adiciona-lo ao
+historico do codigo, evitando duplicar um arquivo binario grande no Git.
+
+COMO CONFERIR UM PACOTE ANTES DO ENVIO
+--------------------------------------
+
+Depois de extrair o RAR em uma pasta temporaria:
+
+1. Confira se existem GUIA_USO.txt e exemple.env.
+2. Confira se nao existem CSVs, backups, leads_status.json, node_modules,
+   .env, logs ou a pasta .git.
+3. Execute npm install e npx playwright install chromium.
+4. Execute uma coleta pequena ou npm start.
+5. Apague a pasta temporaria depois da verificacao.
+
+PROBLEMAS COMUNS
+----------------
+
+"node" ou "npm" nao e reconhecido:
+   Instale o Node.js 20 ou superior e abra um novo terminal.
+
+Erro do Playwright ou Chromium ausente:
+   Execute npx playwright install chromium.
+
+O dashboard abre sem leads:
+   Execute primeiro uma coleta na mesma pasta do projeto e clique em
+   Recarregar no dashboard.
+
+O Google Maps mudou a tela ou bloqueou a consulta:
+   A coleta depende da internet, da disponibilidade do Google Maps e dos
+   seletores atuais. Reduza o --limite, use --headed para investigar e evite
+   executar consultas em excesso.
+
+FIM DO GUIA
+===========

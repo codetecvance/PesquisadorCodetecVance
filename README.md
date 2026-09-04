@@ -2,6 +2,10 @@
 
 Coleta de leads públicos do Google Maps e dashboard local para análise e organização.
 
+Guia completo de instalação e uso: [GUIA_USO.txt](GUIA_USO.txt).
+
+Para baixar uma versão pronta para uso local, acesse os [Releases](https://github.com/codetecvance/PesquisadorCodetecVance/releases).
+
 ## Funcionalidades
 
 - Pesquisa por cidade, bairro e categoria usando Playwright.
@@ -12,7 +16,7 @@ Coleta de leads públicos do Google Maps e dashboard local para análise e organ
 
 ## Requisitos
 
-- Node.js 18 ou superior.
+- Node.js 20 ou superior.
 - Navegador Chromium instalado pelo Playwright.
 
 ## Instalação
@@ -21,6 +25,10 @@ Coleta de leads públicos do Google Maps e dashboard local para análise e organ
 npm install
 npx playwright install chromium
 ```
+
+Esta versão não usa tokens, senhas ou chaves de API. O arquivo `exemple.env`
+contém apenas um exemplo da configuração opcional de porta. O projeto não
+carrega automaticamente arquivos `.env`.
 
 ## Dashboard
 
@@ -51,3 +59,6 @@ npm run emails
 ## Privacidade
 
 Os arquivos com leads, telefones, e-mails, status e backups são dados locais e estão bloqueados pelo `.gitignore`. Eles não devem ser publicados neste repositório.
+
+Use os dados coletados de forma responsável, observando a LGPD, os termos dos
+serviços consultados e as regras aplicáveis ao contato comercial.
