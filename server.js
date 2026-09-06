@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const { slug, readLeadsCSVs, serializeCSV } = require("./csv");
 
-const PORT = parseInt(process.env.PORT, 10) || 3000;
+const INITIAL_PORT = parseInt(process.env.PORT, 10) || 3000;
 const ROOT = __dirname;
 const PUBLIC = path.join(ROOT, "public");
 const STATUS_FILE = path.join(ROOT, "leads_status.json");
@@ -172,7 +172,22 @@ function applyFilter(leads, f) {
   });
 }
 
-server.listen(PORT, () => {
-  console.log(`Dashboard rodando em http://localhost:${PORT}`);
-  console.log(`Dados: ${loadLeads().length} leads carregados de leads_*.csv`);
-});
+let port = INITIAL_PORT;
+
+function listenOnAvailablePort() {
+  server.once("error", (error) => {
+    if (error.code !== "EADDRINUSE" || port >= 65535) {
+      throw error;
+    }
+    port++;
+    console.warn(`Porta ocupada. Tentando a porta ${port}...`);
+    listenOnAvailablePort();
+  });
+
+  server.listen(port, () => {
+    console.log(`Dashboard rodando em http://localhost:${port}`);
+    console.log(`Dados: ${loadLeads().length} leads carregados de leads_*.csv`);
+  });
+}
+
+listenOnAvailablePort();

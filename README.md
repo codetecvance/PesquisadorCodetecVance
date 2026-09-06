@@ -36,7 +36,9 @@ carrega automaticamente arquivos `.env`.
 npm start
 ```
 
-Acesse `http://localhost:3000` no navegador.
+Acesse a URL exibida no terminal, normalmente `http://localhost:3000`.
+Se a porta 3000 estiver ocupada, o servidor tenta automaticamente a próxima
+porta livre e informa a URL correta no terminal.
 
 Para iniciar o servidor em modo de desenvolvimento, use:
 
@@ -44,7 +46,8 @@ Para iniciar o servidor em modo de desenvolvimento, use:
 npm run dev
 ```
 
-O comando inicia o mesmo dashboard local do `npm start`.
+O comando inicia o mesmo dashboard local do `npm start`. Se a porta padrão
+estiver ocupada, a próxima porta livre será usada automaticamente.
 
 ## Coleta
 
