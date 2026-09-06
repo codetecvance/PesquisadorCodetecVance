@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
+    "dev": "node server.js",
     "limpar": "node limpar_leads.js",
     "emails": "node enriquecer_emails.js",
     "test": "echo \"Error: no test specified\" && exit 1"

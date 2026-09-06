@@ -89,6 +89,12 @@ Depois abra no navegador:
 
 http://localhost:3000
 
+Durante o desenvolvimento, o mesmo servidor tambem pode ser iniciado com:
+
+npm run dev
+
+Nesta versao, npm run dev e um atalho para iniciar o servidor local.
+
 Se tiver escolhido outra porta, substitua 3000 pela porta configurada.
 
 O dashboard permite:

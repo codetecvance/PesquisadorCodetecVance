@@ -38,6 +38,14 @@ npm start
 
 Acesse `http://localhost:3000` no navegador.
 
+Para iniciar o servidor em modo de desenvolvimento, use:
+
+```bash
+npm run dev
+```
+
+O comando inicia o mesmo dashboard local do `npm start`.
+
 ## Coleta
 
 ```bash
