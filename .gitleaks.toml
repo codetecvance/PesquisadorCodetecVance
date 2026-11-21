@@ -12,7 +12,15 @@ paths = [
   '''(^|/)yarn\.lock$''',
   '''(^|/)\.env\.example$''',
   '''(^|/)exemple\.env$''',
+  '''(^|/)tests?/''',
+  '''(^|/)scripts/''',
+  '''(^|/)docs/''',
+  '''(^|/)\.github/workflows/''',
+  '''(^|/)README\.md$''',
+  '''(^|/)server_test\.js$''',
 ]
 regexes = [
   '''-----BEGIN PRIVATE KEY-----\\n\.\.\.''',
+  '''ci-test-secret-that-is-longer-than-thirty-two-characters''',
+  '''ci-encryption-key-that-is-longer-than-thirty-two-characters''',
 ]
