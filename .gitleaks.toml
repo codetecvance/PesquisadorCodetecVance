@@ -1,0 +1,18 @@
+title = "gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Falsos positivos conhecidos do projeto"
+paths = [
+  '''(^|/)node_modules/''',
+  '''(^|/)package-lock\.json$''',
+  '''(^|/)pnpm-lock\.yaml$''',
+  '''(^|/)yarn\.lock$''',
+  '''(^|/)\.env\.example$''',
+  '''(^|/)exemple\.env$''',
+]
+regexes = [
+  '''-----BEGIN PRIVATE KEY-----\\n\.\.\.''',
+]
